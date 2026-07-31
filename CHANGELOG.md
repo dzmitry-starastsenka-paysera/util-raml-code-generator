@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+## 11.12.0
+### Fixed
+- Domain types whose name merely contains "metadata" are no longer discarded; only the result envelope's own `ResultMetadata` is skipped. Types such as `TransferMetadata` are generated from now on, so regenerating a client can add files
+- Named scalar types (a RAML DataType that is a primitive plus constraints, with no properties) no longer break generation for every type referencing them, whether referenced as a property or as an array item type. Their `enum` values are kept as constants on the referencing property
+
 ## 11.11.5
 ### Fixed
 - Fixes PHP client generation issue by fixing Money object array hydration
