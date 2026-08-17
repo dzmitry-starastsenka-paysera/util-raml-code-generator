@@ -1,5 +1,6 @@
 import { createRequest, ClientWrapper } from '@paysera/http-client-common';
 
+import CurrencyResult from '../entity/CurrencyResult';
 import Payment from '../entity/Payment';
 
 class NamedScalarClient {
@@ -27,6 +28,24 @@ class NamedScalarClient {
         return this.client
             .performRequest(request)
             .then(data => new Payment(data));
+    }
+
+    /**
+     * List currencies
+     * GET /currencies
+     *
+     * @return {Promise.<CurrencyResult>}
+     */
+    getCurrencies() {
+        const request = createRequest(
+            'GET',
+            `currencies`,
+            null,
+        );
+
+        return this.client
+            .performRequest(request)
+            .then(data => new CurrencyResult(data, 'currencies'));
     }
 
 }

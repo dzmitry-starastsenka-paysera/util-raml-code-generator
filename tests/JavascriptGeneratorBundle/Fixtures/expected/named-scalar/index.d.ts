@@ -1,4 +1,13 @@
+import { Result } from '@paysera/http-client-common';
 import { Entity } from '@paysera/http-client-common';
+
+export interface CurrencyResultProperties {
+}
+
+declare class CurrencyResult extends Result {
+
+    getData(): CurrencyResultProperties;
+}
 
 export interface PaymentProperties {
     id: string;
@@ -8,6 +17,7 @@ export interface PaymentProperties {
     scan_result: string | null;
     filter_mode: string | null;
     metadata: PaymentMetadata | null;
+    search_metadata: SearchResultMetadata | null;
 }
 
 declare class Payment extends Entity {
@@ -25,6 +35,8 @@ declare class Payment extends Entity {
     setFilterMode(filterMode: string | null): this;
     getMetadata(): PaymentMetadata | null;
     setMetadata(metadata: PaymentMetadata | null): this;
+    getSearchMetadata(): SearchResultMetadata | null;
+    setSearchMetadata(searchMetadata: SearchResultMetadata | null): this;
 
     getData(): PaymentProperties;
 }
@@ -41,6 +53,20 @@ declare class PaymentMetadata extends Entity {
     setChannel(channel: string | null): this;
 
     getData(): PaymentMetadataProperties;
+}
+
+export interface SearchResultMetadataProperties {
+    source: string;
+    matched: bigint | null;
+}
+
+declare class SearchResultMetadata extends Entity {
+    getSource(): string;
+    setSource(source: string): this;
+    getMatched(): bigint | null;
+    setMatched(matched: bigint | null): this;
+
+    getData(): SearchResultMetadataProperties;
 }
 
 
@@ -61,4 +87,5 @@ export function createNamedScalarClient(configuration: ClientConfiguration): Nam
 
 export interface NamedScalarClient {
     createPayment(payment: Payment): Promise<Payment>
+    getCurrencies(): Promise<CurrencyResult>
 }

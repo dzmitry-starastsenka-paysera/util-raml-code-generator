@@ -14,7 +14,9 @@ types:
   ScanResult: !include types/scan-result.raml
   FilterMode: !include types/filter-mode.raml
   PaymentMetadata: !include types/payment-metadata.raml
+  SearchResultMetadata: !include types/search-result-metadata.raml
   Payment: !include types/payment.raml
+  CurrencyResult: !include types/currency-result.raml
 
 /payments:
   post:
@@ -29,3 +31,13 @@ types:
         body:
           application/json:
             type: Payment
+
+/currencies:
+  get:
+    description: List currencies
+    responses:
+      200:
+        description: Collection response
+        body:
+          application/json:
+            type: CurrencyResult

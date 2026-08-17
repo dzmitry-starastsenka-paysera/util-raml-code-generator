@@ -1,10 +1,8 @@
 <?php
 
-namespace Paysera\Test\NamedScalarClient\Entity;
+namespace Vendor\Test\NamedScalarApiBundle\Entity;
 
-use Paysera\Component\RestClientCommon\Entity\Entity;
-
-class Payment extends Entity
+class Payment
 {
     const CURRENCY_EUR = 'EUR';
     const CURRENCY_USD = 'USD';
@@ -15,33 +13,34 @@ class Payment extends Entity
     const FILTER_MODE_STRICT = 'strict';
     const FILTER_MODE_LOOSE = 'loose';
 
-    public function __construct(array $data = [])
+    private $id;
+    private $currency;
+    private $allowedCurrencies;
+    private $accountNumber;
+    private $scanResult;
+    private $filterMode;
+    private $metadata;
+    private $searchMetadata;
+
+    public function __construct()
     {
-        parent::__construct($data);
+                
+        $this->allowedCurrencies = [];                    
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getId()
     {
-        return $this->get('id');
-    }
-    /**
-     * @param string $id
-     * @return $this
-     */
-    public function setId($id)
-    {
-        $this->set('id', $id);
-        return $this;
+        return $this->id;
     }
     /**
      * @return string
      */
     public function getCurrency()
     {
-        return $this->get('currency');
+        return $this->currency;
     }
     /**
      * @param string $currency
@@ -49,15 +48,15 @@ class Payment extends Entity
      */
     public function setCurrency($currency)
     {
-        $this->set('currency', $currency);
+        $this->currency = $currency;
         return $this;
     }
     /**
-     * @return string[]|null
+     * @return string[]
      */
     public function getAllowedCurrencies()
     {
-        return $this->get('allowed_currencies');
+        return $this->allowedCurrencies;
     }
     /**
      * @param string[] $allowedCurrencies
@@ -65,7 +64,7 @@ class Payment extends Entity
      */
     public function setAllowedCurrencies(array $allowedCurrencies)
     {
-        $this->set('allowed_currencies', $allowedCurrencies);
+        $this->allowedCurrencies = $allowedCurrencies;
         return $this;
     }
     /**
@@ -73,7 +72,7 @@ class Payment extends Entity
      */
     public function getAccountNumber()
     {
-        return $this->get('account_number');
+        return $this->accountNumber;
     }
     /**
      * @param string $accountNumber
@@ -81,7 +80,7 @@ class Payment extends Entity
      */
     public function setAccountNumber($accountNumber)
     {
-        $this->set('account_number', $accountNumber);
+        $this->accountNumber = $accountNumber;
         return $this;
     }
     /**
@@ -89,7 +88,7 @@ class Payment extends Entity
      */
     public function getScanResult()
     {
-        return $this->get('scan_result');
+        return $this->scanResult;
     }
     /**
      * @param string $scanResult
@@ -97,7 +96,7 @@ class Payment extends Entity
      */
     public function setScanResult($scanResult)
     {
-        $this->set('scan_result', $scanResult);
+        $this->scanResult = $scanResult;
         return $this;
     }
     /**
@@ -105,7 +104,7 @@ class Payment extends Entity
      */
     public function getFilterMode()
     {
-        return $this->get('filter_mode');
+        return $this->filterMode;
     }
     /**
      * @param string $filterMode
@@ -113,7 +112,7 @@ class Payment extends Entity
      */
     public function setFilterMode($filterMode)
     {
-        $this->set('filter_mode', $filterMode);
+        $this->filterMode = $filterMode;
         return $this;
     }
     /**
@@ -121,10 +120,7 @@ class Payment extends Entity
      */
     public function getMetadata()
     {
-        if ($this->get('metadata') === null) {
-            return null;
-        }
-        return (new PaymentMetadata())->setDataByReference($this->getByReference('metadata'));
+        return $this->metadata;
     }
     /**
      * @param PaymentMetadata $metadata
@@ -132,7 +128,7 @@ class Payment extends Entity
      */
     public function setMetadata(PaymentMetadata $metadata)
     {
-        $this->setByReference('metadata', $metadata->getDataByReference());
+        $this->metadata = $metadata;
         return $this;
     }
     /**
@@ -140,10 +136,7 @@ class Payment extends Entity
      */
     public function getSearchMetadata()
     {
-        if ($this->get('search_metadata') === null) {
-            return null;
-        }
-        return (new SearchResultMetadata())->setDataByReference($this->getByReference('search_metadata'));
+        return $this->searchMetadata;
     }
     /**
      * @param SearchResultMetadata $searchMetadata
@@ -151,7 +144,8 @@ class Payment extends Entity
      */
     public function setSearchMetadata(SearchResultMetadata $searchMetadata)
     {
-        $this->setByReference('search_metadata', $searchMetadata->getDataByReference());
+        $this->searchMetadata = $searchMetadata;
         return $this;
     }
+
 }

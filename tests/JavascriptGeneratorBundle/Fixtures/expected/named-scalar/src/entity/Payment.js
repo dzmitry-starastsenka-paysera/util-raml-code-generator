@@ -1,4 +1,5 @@
 import PaymentMetadata from './PaymentMetadata';
+import SearchResultMetadata from './SearchResultMetadata';
 import { Entity } from '@paysera/http-client-common';
 
 class Payment extends Entity {
@@ -105,6 +106,23 @@ class Payment extends Entity {
      */
     setMetadata(metadata) {
         this.set('metadata', metadata.getData());
+    }
+
+    /**
+     * @return {SearchResultMetadata|null}
+     */
+    getSearchMetadata() {
+        if (this.get('search_metadata') == null) {
+            return null;
+        }
+        return new SearchResultMetadata(this.get('search_metadata'));
+    }
+
+    /**
+     * @param {SearchResultMetadata} searchMetadata
+     */
+    setSearchMetadata(searchMetadata) {
+        this.set('search_metadata', searchMetadata.getData());
     }
 }
 

@@ -54,8 +54,19 @@ $payment->setAccountNumber($accountNumber);
 $payment->setScanResult($scanResult);
 $payment->setFilterMode($filterMode);
 $payment->setMetadata($metadata);
+$payment->setSearchMetadata($searchMetadata);
     
 $result = $namedScalarClient->createPayment($payment);
+```
+---
+
+    
+List currencies
+
+
+```php
+
+$result = $namedScalarClient->getCurrencies();
 ```
 ---
 
